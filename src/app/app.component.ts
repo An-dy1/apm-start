@@ -6,11 +6,11 @@ import { Component } from "@angular/core";
   selector: 'pm-root', //find this custom html tag in index.html
   template: `
   <div><h1>{{pageTitle}}</h1>
-    <div>I made my first component!</div>
+    <pm-products></pm-products>
   </div>`
 })
 
 //1. start by creating class
 export class AppComponent {
   pageTitle: string = "American Public Mysteries";
-}
+} 
