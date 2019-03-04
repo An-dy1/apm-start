@@ -1,17 +1,19 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { IProduct } from "./product"; 
 
 @Component({
   selector: "pm-products",
-  templateUrl: "./product-list.component.html"
+  templateUrl: "./product-list.component.html",
+  styleUrls: ['./product-list.component.css']
 })
 
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
   pageTitle: string = "Mysteries 5000";
   imageWidth: number = 50;
   imageMargin: number = 2;
   showImage: boolean = false; // define a class property that keeps track of whether the images are currently displayed
   listFilter: string = 'saw';
-  products: any[] = [
+  products: IProduct[] = [
     {
       productId: 5,
       productName: "Hammer",
@@ -49,6 +51,10 @@ export class ProductListComponent {
   
   toggleImage(): void { // no return type, so declare as void
     this.showImage = !this.showImage;
+  }
+
+  ngOnInit(): void {
+    console.log("In OnInit");
   }
     // build the method that the event binding will call; goes after all properties are declared by convention
 }
