@@ -12,7 +12,19 @@ export class ProductListComponent implements OnInit {
   imageWidth: number = 50;
   imageMargin: number = 2;
   showImage: boolean = false; // define a class property that keeps track of whether the images are currently displayed
-  listFilter: string = 'saw';
+  
+  _listFilter: string;
+  // The get syntax binds an object property to a function that will be called when that property is looked up.
+  get listFilter(): string {
+    return this._listFilter;
+  }
+  // The set syntax binds an object property to a function to be called when there is an attempt to set that property.
+  set listFilter(value: string) { 
+    this._listFilter = value;
+    this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
+  }
+
+  filteredProducts: IProduct[];
   products: IProduct[] = [
     {
       productId: 5,
@@ -48,6 +60,17 @@ export class ProductListComponent implements OnInit {
         "https://openclipart.org/image/300px/svg_to_png/120337/xbox-controller_01.png"
     }
   ];
+
+  constructor() {
+    this.filteredProducts = this.products;
+    this.listFilter = "saw";
+  }
+
+  performFilter(filterBy: string): IProduct[] {
+    filterBy = filterBy.toLocaleLowerCase();
+    return this.products.filter((product: IProduct) =>
+      product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1); 
+  }
   
   toggleImage(): void { // no return type, so declare as void
     this.showImage = !this.showImage;
